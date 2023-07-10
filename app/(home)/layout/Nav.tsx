@@ -40,15 +40,15 @@ const Nav = async () => {
                 Inicio
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link page-scroll" href="#testimonial">
+                Testimonios
+              </a>
+            </li>
             <ProjectMenu />
             <li className="nav-item">
               <a className="nav-link" href="/#v-edition">
                 V Edición
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link page-scroll" href="#testimonial">
-                Testimonios
               </a>
             </li>
             {session ? (
