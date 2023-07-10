@@ -375,6 +375,12 @@ type ProjectFormProps = Omit<
   "feature" | "authors" | "previewUrl" | "coverUrl" | "id"
 >;
 
+const previewImages = {
+  ComplexAppSection: "/images/feature/iphone-ipad.jpg",
+  SimpleAppSection: "/images/feature/feature-new-01.jpg",
+  SingleAppSection: "/images/feature/feature-new-02.jpg",
+};
+
 const ProjectForm: FC<Props> = ({ id, data }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(
@@ -383,14 +389,24 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<ProjectFormProps>({ defaultValues: data });
   const [authors, setAuthors] = useState<Author[]>(data.authors || []);
   const [features, setFeatures] = useState<Feature[]>(data.features || []);
   const navigate = useRouter();
 
+  const sectionType = watch("sectionType");
+
   const onSubmit: SubmitHandler<ProjectFormProps> = async (values) => {
     setLoading(true);
+
+    const previewUrl = await ImagesStorage.uploadProjectData(
+      id,
+      previewImages[values.sectionType],
+      projectImages.preview
+    );
+
     const coverUrl = await ImagesStorage.uploadProjectData(
       id,
       imageUrl,
@@ -409,7 +425,7 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
       ...values,
       authors,
       features,
-      previewUrl: coverUrl,
+      previewUrl,
       coverUrl,
     };
 
@@ -549,7 +565,7 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
             onChange={(e) => onChangeCoverImage(e)}
           />
           <div>
-            <div className="dropdown-divider m-5" />
+            <div className="dropdown-divider m-3" />
             <div className="d-flex justify-content-end">
               <button
                 type="button"
@@ -626,86 +642,94 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
               </div>
             ))}
           </div>
-          <div>
-            <div className="dropdown-divider m-5" />
-            <div className="d-flex justify-content-end">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => addNewFeature()}
-              >
-                Agregar característica
-              </button>
-            </div>
-          </div>
-          <div className="mb-5">
-            {features.map(({ id, description, icon, title }) => (
-              <div
-                key={`author-${id}`}
-                className="d-flex"
-                style={{ gap: "1rem" }}
-              >
-                <select
-                  value={icon}
-                  className="form-control main col-3"
-                  placeholder="Icono"
-                  onChange={({ target }) =>
-                    setFeatures(
-                      features.map((features) =>
-                        features.id !== id
-                          ? features
-                          : { ...features, icon: target.value }
-                      )
-                    )
-                  }
-                >
-                  {icons.map((icon) => (
-                    <option key={icon} value={icon}>
-                      {icon}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  value={title}
-                  className="form-control main col-3"
-                  placeholder="Titulo"
-                  onChange={({ target }) =>
-                    setFeatures(
-                      features.map((features) =>
-                        features.id !== id
-                          ? features
-                          : { ...features, title: target.value }
-                      )
-                    )
-                  }
-                />
-                <input
-                  value={description}
-                  className="form-control main col"
-                  placeholder="Descripción"
-                  onChange={({ target }) =>
-                    setFeatures(
-                      features.map((feature) =>
-                        feature.id !== id
-                          ? feature
-                          : { ...feature, description: target.value }
-                      )
-                    )
-                  }
-                />
-                <div>
+          {sectionType === "ComplexAppSection" && (
+            <>
+              <div>
+                <div className="dropdown-divider m-3" />
+                <div className="d-flex justify-content-end">
                   <button
                     type="button"
-                    className="btn btn-danger"
-                    onClick={() => deleteFeature(id)}
+                    className="btn btn-secondary"
+                    onClick={() => addNewFeature()}
                   >
-                    <i className="ti-eraser"></i>
+                    Agregar característica
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-          <input type="submit" className={clsx("btn btn-primary", loading ? "disabled":"")} value={loading ? "Cargando..." : "Guardar"} />
+              <div className="mb-5">
+                {features.map(({ id, description, icon, title }) => (
+                  <div
+                    key={`author-${id}`}
+                    className="d-flex"
+                    style={{ gap: "1rem" }}
+                  >
+                    <select
+                      value={icon}
+                      className="form-control main col-3"
+                      placeholder="Icono"
+                      onChange={({ target }) =>
+                        setFeatures(
+                          features.map((features) =>
+                            features.id !== id
+                              ? features
+                              : { ...features, icon: target.value }
+                          )
+                        )
+                      }
+                    >
+                      {icons.map((icon) => (
+                        <option key={icon} value={icon}>
+                          {icon}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      value={title}
+                      className="form-control main col-3"
+                      placeholder="Titulo"
+                      onChange={({ target }) =>
+                        setFeatures(
+                          features.map((features) =>
+                            features.id !== id
+                              ? features
+                              : { ...features, title: target.value }
+                          )
+                        )
+                      }
+                    />
+                    <input
+                      value={description}
+                      className="form-control main col"
+                      placeholder="Descripción"
+                      onChange={({ target }) =>
+                        setFeatures(
+                          features.map((feature) =>
+                            feature.id !== id
+                              ? feature
+                              : { ...feature, description: target.value }
+                          )
+                        )
+                      }
+                    />
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => deleteFeature(id)}
+                      >
+                        <i className="ti-eraser"></i>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+          <input
+            type="submit"
+            className={clsx("btn btn-primary", loading ? "disabled" : "")}
+            value={loading ? "Cargando..." : "Guardar"}
+          />
         </form>
       </div>
     </>

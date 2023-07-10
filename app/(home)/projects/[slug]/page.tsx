@@ -10,7 +10,7 @@ const ProjectPage = async (props: any) => {
 
   if (!data) notFound();
 
-  const { title, authors, content, coverUrl, description, id, previewUrl } =
+  const { title, authors, content, coverUrl } =
     data;
 
   return (
@@ -22,9 +22,7 @@ const ProjectPage = async (props: any) => {
               <div className="post-title text-center">
                 <h1>{title}</h1>
                 <ul className="list-inline post-tag">
-                  <li className="list-inline-item">
-                    Asesor(a):
-                  </li>
+                  <li className="list-inline-item">Asesor(a):</li>
                   <li className="list-inline-item">
                     <Image
                       width={30}
@@ -42,10 +40,10 @@ const ProjectPage = async (props: any) => {
               <div className="post-body">
                 <div className="feature-image">
                   <Image
-                    className="img-fluid"
                     width={700}
                     height={349}
                     src={coverUrl}
+                    style={{ objectFit: "cover" }}
                     alt="feature-image"
                   />
                 </div>

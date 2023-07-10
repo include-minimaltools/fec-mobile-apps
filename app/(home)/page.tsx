@@ -1,14 +1,20 @@
-import { EditionCollection } from "~/firebase/database";
-import { ComplexAppSection, Countdown, TestimonialCard } from "./components";
+import { EditionCollection, ProjectCollection } from "~/firebase/database";
+import {
+  ComplexAppSection,
+  Countdown,
+  SimpleAppSection,
+  SingleAppSection,
+  TestimonialCard,
+} from "./components";
 import { calculateDiffDate } from "./utils";
 import { notFound } from "next/navigation";
 
 export default async function Home() {
   const edition = await new EditionCollection().getCurrentEdition();
 
-  console.log(edition)
- 
   if (!edition) notFound();
+
+  const projects = (await new ProjectCollection().getAll()) || [];
 
   const { eventSchedule, testimonials, eventDate, videoData } = edition;
 
@@ -187,107 +193,61 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className="feature section pt-0">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 ml-auto justify-content-center">
-              <div className="image-content" data-aos="fade-right">
-                <img
-                  className="img-fluid"
-                  src="images/feature/feature-new-01.jpg"
-                  alt="iphone"
-                />
-              </div>
-            </div>
-            <div className="col-lg-6 mr-auto align-self-center">
-              <div className="feature-content">
-                <h2>
-                  Aplicación <a href="">Rommies</a>
-                </h2>
-                {/* Feature Description */}
-                <p className="desc">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-              </div>
-              {/* Testimonial Quote */}
-              <div className="testimonial">
-                <p>
-                  InVision is a window into everything being designed at
-                  Twitter. It gets all of our best work in one
-                </p>
-                <ul className="list-inline meta">
-                  <li className="list-inline-item">
-                    <img
-                      src="images/testimonial/feature-testimonial-thumb.jpg"
-                      alt=""
+
+      {testimonials.length && (
+        <section className="section testimonial" id="testimonial" style={{ paddingTop: "1rem"}}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                {/* Testimonial Slider */}
+                <div className="testimonial-slider owl-carousel owl-theme">
+                  {testimonials.map(({ author, description, imageUrl }) => (
+                    <TestimonialCard
+                      key={author}
+                      author={author}
+                      description={description}
+                      imageUrl={imageUrl}
                     />
-                  </li>
-                  <li className="list-inline-item">
-                    Jonathon Andrew , Themefisher.com
-                  </li>
-                </ul>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="feature section pt-0">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 ml-auto align-self-center">
-              <div className="feature-content">
-                <h2>
-                  Aplicación <a href="">UNI Pass ID</a>
-                </h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-              </div>
-              <div className="testimonial">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-                  dolores ipsum culpa eligendi recusandae illum odit fugiat!
-                  Quasi, sunt possimus porro magni vero voluptas unde laborum
-                  nulla labore facilis consequatur?
-                </p>
-                <ul className="list-inline meta">
-                  <li className="list-inline-item">
-                    <img
-                      src="images/testimonial/feature-testimonial-thumb.jpg"
-                      alt=""
-                    />
-                  </li>
-                  <li className="list-inline-item">
-                    Jonathon Andrew , Themefisher.com
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-lg-6 mr-auto justify-content-center">
-              <div className="image-content" data-aos="fade-left">
-                <img
-                  className="img-fluid"
-                  src="images/feature/feature-new-02.jpg"
-                  alt="ipad"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <ComplexAppSection
-        name="Veterinaria"
-        description="Esta es una aplicacion..."
-        features={[{ description: "", icon: "", title: "" }]}
-        href=""
-        image="/images/feature/iphone-ipad.jpg"
-      />
+        </section>
+      )}
+
+      {projects.map(
+        ({ title, description, previewUrl, id, sectionType, features }) => {
+          if (sectionType === "SingleAppSection")
+            return (
+              <SingleAppSection
+                title={title}
+                description={description}
+                href={`/projects/${id}`}
+                previewUrl={previewUrl}
+              />
+            );
+          else if (sectionType === "SimpleAppSection")
+            return (
+              <SimpleAppSection
+                title={title}
+                description={description}
+                href={`/projects/${id}`}
+                previewUrl={previewUrl}
+              />
+            );
+          else if (sectionType === "ComplexAppSection")
+            return (
+              <ComplexAppSection
+                title={title}
+                description={description}
+                href={`/projects/${id}`}
+                previewUrl={previewUrl}
+                features={features}
+              />
+            );
+        }
+      )}
 
       {videoData && (
         <section className="video-promo section bg-lalo" id="v-edition">
@@ -308,28 +268,6 @@ export default async function Home() {
                   >
                     <i className="ti-control-play video" />
                   </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {testimonials.length && (
-        <section className="section testimonial" id="testimonial">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                {/* Testimonial Slider */}
-                <div className="testimonial-slider owl-carousel owl-theme">
-                  {testimonials.map(({ author, description, imageUrl }) => (
-                    <TestimonialCard
-                      key={author}
-                      author={author}
-                      description={description}
-                      imageUrl={imageUrl}
-                    />
-                  ))}
                 </div>
               </div>
             </div>

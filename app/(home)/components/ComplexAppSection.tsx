@@ -9,17 +9,17 @@ type Feature = {
 };
 
 type Props = {
-  name: string;
+  title: string;
   description: string;
   features: Feature[];
-  image: string;
+  previewUrl: string;
   href: string;
 };
 
 const ComplexAppSection: FC<Props> = ({
-  name,
+  title,
   href,
-  image,
+  previewUrl,
   features,
   description,
 }) => {
@@ -32,7 +32,7 @@ const ComplexAppSection: FC<Props> = ({
               <h2>
                 Aplicación
                 <a href={href}>
-                  {name}
+                  {title}
                 </a>
               </h2>
               <p>{description}</p>
@@ -46,7 +46,7 @@ const ComplexAppSection: FC<Props> = ({
                 width={1000}
                 height={650}
                 className="img-fluid"
-                src={image}
+                src={previewUrl}
                 alt="iphone-ipad"
               />
             </div>

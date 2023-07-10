@@ -5,6 +5,7 @@ import { LoginButton } from "./index";
 import { authOptions } from "~/pages/api/auth/[...nextauth]";
 import Link from "next/link";
 import { EditorCollection } from "~/firebase/database";
+import ProjectMenu from "./ProjectMenu";
 
 const Nav = async () => {
   const session = await getServerSession(authOptions);
@@ -35,38 +36,13 @@ const Nav = async () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a className="nav-link" href="/#">
                 Inicio
               </a>
             </li>
-            <li className="nav-item dropdown @@home">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                data-toggle="dropdown"
-              >
-                Proyectos
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item @@home1" href="#rommies">
-                    Rommies
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#unipassid">
-                    UNI Pass ID
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item @@home3" href="#veterinaria">
-                    Veterinaria
-                  </a>
-                </li>
-              </ul>
-            </li>
+            <ProjectMenu />
             <li className="nav-item">
-              <a className="nav-link" href="#v-edition">
+              <a className="nav-link" href="/#v-edition">
                 V Edición
               </a>
             </li>
@@ -114,12 +90,14 @@ const Nav = async () => {
                         className="dropdown-menu"
                         aria-labelledby="navbarDropdownMenuLink"
                       >
-                        {editor && <Link
-                          href="/projects/edit"
-                          className="dropdown-item cursor-poiter"
-                        >
-                          Editar proyecto
-                        </Link>}
+                        {editor && (
+                          <Link
+                            href="/projects/edit"
+                            className="dropdown-item cursor-poiter"
+                          >
+                            Editar proyecto
+                          </Link>
+                        )}
                         <LogoutButton />
                       </div>
                     </li>
