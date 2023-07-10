@@ -1,0 +1,1 @@
+export const CURRENT_EDITION: string = process.env.NEXT_PUBLIC_FAIR_EDITION!;

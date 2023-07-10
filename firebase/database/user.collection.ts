@@ -1,15 +1,10 @@
-import {
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
 import { BaseService } from "./base.collection";
-import { User } from "../models/user.collection";
+import { User } from "../models/user";
+import { CURRENT_EDITION } from "~/constants";
 
 class UserCollection extends BaseService<User> {
   constructor() {
-    super("Users");
+    super(`Editions/${CURRENT_EDITION}/Users`);
   }
 }
 
