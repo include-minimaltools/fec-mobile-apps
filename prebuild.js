@@ -14,7 +14,7 @@ const prebuildScripts = async () => {
   await fs.promises.writeFile(
     file,
     content.replace(
-      "if (process.env.NEXT_PRIVATE_PREBUNDLED_REACT) {",
+      "if (process.env.__NEXT_PRIVATE_PREBUNDLED_REACT) {",
       "if (true) {"
     )
   );
