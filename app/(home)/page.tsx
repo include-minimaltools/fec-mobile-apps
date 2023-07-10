@@ -1,74 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
-import { Countdown, TestimonialCard } from "./components";
+import { EditionCollection } from "~/firebase/database";
+import { ComplexAppSection, Countdown, TestimonialCard } from "./components";
 import { calculateDiffDate } from "./utils";
+import { notFound } from "next/navigation";
 
-const testimonials = [
-  {
-    description:
-      "Año con año organizamos la feria de aplicaciones móviles donde damos a conocer el trabajo que se está realizando a nivel interno en la línea del desarrollo de software con aplicaciones móviles, donde se invita a empresas relacionadas a la rama de la informática.",
-    author: "Glenda Barrios, Organizadora del evento",
-    imageUrl: "images/testimonial/feature-testimonial-thumb.jpg",
-  },
-  {
-    description:
-      "Estamos emocionados por compartir nuestros proyectos con personas que saben de nuestra materia ... Este proyecto nos abre muchas puertas a nosotros como desarrolladores para tener un espacio a oportunidades de negocio ... El propósito de nuestra aplicación es tener un enfoque colaborativo en el que todos puedan apoyarse de nuestra aplicación",
-    author: "Richard Briones, Participante de la V Edición",
-    imageUrl: "images/testimonial/feature-testimonial-thumb.jpg",
-  },
-];
+export default async function Home() {
+  const edition = await new EditionCollection().getCurrentEdition();
 
-const schedule = [
-  {
-    subject: "Palabras de Apertura",
-    host: {
-      name: "Ingeniero Ronald Torres Torres",
-      position: "Decano FEC",
-    },
-    time: "09:00 AM",
-  },
-  {
-    subject: "Presentación del jurado y criterios de evaluación",
-    host: {
-      name: "Glenda Barrios Aguirre",
-      position: "Coordinador del Evento",
-    },
-    time: "9:10 AM",
-  },
-  {
-    subject: "Presentación de las Apps Desarrolladores",
-    host: {
-      name: "Participantes",
-      position: "Estudiantes de Ingeniería en Computación",
-    },
-    time: "9:15 AM",
-  },
-  {
-    subject: "Deliberación",
-    host: {
-      name: "Jurado",
-      position: "",
-    },
-    time: "10:45 AM",
-  },
-  {
-    subject: "Premiación",
-    host: {
-      name: "Jurado",
-      position: "",
-    },
-    time: "10:55 AM",
-  },
-  {
-    subject: "Palabras de Cierre",
-    host: {
-      name: "Glenda Barrios Aguirre",
-      position: "Coordinador del Evento",
-    },
-    time: "11:00 AM",
-  },
-];
+  console.log(edition)
+ 
+  if (!edition) notFound();
 
-export default function Home() {
+  const { eventSchedule, testimonials, eventDate, videoData } = edition;
+
   return (
     <>
       <section className="section gradient-banner">
@@ -190,7 +133,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Countdown initialCountdown={calculateDiffDate(new Date("7/14/2023"))} />
+      <Countdown
+        initialCountdown={calculateDiffDate(new Date(eventDate.toDate()))}
+      />
       <section className="section schedule">
         <div className="container">
           <div className="row">
@@ -220,7 +165,7 @@ export default function Home() {
                         <div className="speaker">Anfitrión</div>
                         <div className="subject">Tópico</div>
                       </li>
-                      {schedule.map(({ host, subject, time }) => (
+                      {eventSchedule.map(({ host, subject, time }) => (
                         <li key={time} className="schedule-details">
                           <div className="block">
                             <div className="time">
@@ -336,124 +281,61 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="service section bg-gray">
-        <div className="container-fluid p-0">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title">
-                <h2>An Interface For Lifestyle</h2>
-                <p>
-                  <a href="https://themefisher.com/products/small-apps-free-app-landing-page-template/">
-                    Small Apps
-                  </a>{" "}
-                  makes it easy to stay on top of your Life Style. No late
-                  tasks. No gimmicks.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row no-gutters">
-            <div className="col-lg-6 align-self-center">
-              {/* Feature Image */}
-              <div className="service-thumb left" data-aos="fade-right">
-                <img
-                  className="img-fluid"
-                  src="images/feature/iphone-ipad.jpg"
-                  alt="iphone-ipad"
-                />
-              </div>
-            </div>
-            <div className="col-lg-5 mr-auto align-self-center">
-              <div className="service-box">
-                <div className="row align-items-center">
-                  <div className="col-md-6 col-xs-12">
-                    <div className="service-item">
-                      <i className="ti-bookmark" />
-                      <h3>Easy Prototyping</h3>
-                      <p>
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor
-                        at sem. Curabitur aliquet quam id dui
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-xs-12">
-                    <div className="service-item">
-                      <i className="ti-pulse" />
-                      <h3>Sensor Bridge</h3>
-                      <p>
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor
-                        at sem. Curabitur aliquet quam id dui
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-xs-12">
-                    <div className="service-item">
-                      <i className="ti-bar-chart" />
-                      <h3>Strategist</h3>
-                      <p>
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor
-                        at sem. Curabitur aliquet quam id dui
-                      </p>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-xs-12">
-                    <div className="service-item">
-                      <i className="ti-panel" />
-                      <h3>Art Direction</h3>
-                      <p>
-                        Curabitur arcu erat, accumsan id imperdiet et, porttitor
-                        at sem. Curabitur aliquet quam id dui
-                      </p>
-                    </div>
-                  </div>
+      <ComplexAppSection
+        name="Veterinaria"
+        description="Esta es una aplicacion..."
+        features={[{ description: "", icon: "", title: "" }]}
+        href=""
+        image="/images/feature/iphone-ipad.jpg"
+      />
+
+      {videoData && (
+        <section className="video-promo section bg-lalo" id="v-edition">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="content-block">
+                  <h2>Mira los resultados de la V Edición</h2>
+                  <p>
+                    La Facultad de Electrotecnia y Computación activa en el
+                    desarrollo de aplicaciones, efectuó la Exposición de
+                    Proyectos en la V Feria de Aplicaciones móviles,
+                    desarrollados por futuros ingenieros en computación.
+                  </p>
+                  <a
+                    data-fancybox=""
+                    href="https://www.youtube.com/watch?v=RWcWginJA1o"
+                  >
+                    <i className="ti-control-play video" />
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="video-promo section bg-lalo" id="v-edition">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="content-block">
-                <h2>Mira los resultados de la V Edición</h2>
-                <p>
-                  La Facultad de Electrotecnia y Computación activa en el
-                  desarrollo de aplicaciones, efectuó la Exposición de Proyectos
-                  en la V Feria de Aplicaciones móviles, desarrollados por
-                  futuros ingenieros en computación.
-                </p>
-                <a
-                  data-fancybox=""
-                  href="https://www.youtube.com/watch?v=RWcWginJA1o"
-                >
-                  <i className="ti-control-play video" />
-                </a>
+        </section>
+      )}
+
+      {testimonials.length && (
+        <section className="section testimonial" id="testimonial">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                {/* Testimonial Slider */}
+                <div className="testimonial-slider owl-carousel owl-theme">
+                  {testimonials.map(({ author, description, imageUrl }) => (
+                    <TestimonialCard
+                      key={author}
+                      author={author}
+                      description={description}
+                      imageUrl={imageUrl}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="section testimonial" id="testimonial">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              {/* Testimonial Slider */}
-              <div className="testimonial-slider owl-carousel owl-theme">
-                {testimonials.map(({ author, description, imageUrl }) => (
-                  <TestimonialCard
-                    key={author}
-                    author={author}
-                    description={description}
-                    imageUrl={imageUrl}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

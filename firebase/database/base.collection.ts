@@ -66,7 +66,9 @@ abstract class BaseCollection<T extends Collection> {
     return await updateDoc(reference, data);
   }
 
-  async exists(id: string): Promise<boolean> {
+  async exists(id: string | null | undefined): Promise<boolean> {
+    if (!id) return false;
+    
     const reference = doc(this.collection, id);
     const snapshot = await getDoc(reference);
 

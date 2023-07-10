@@ -1,9 +1,10 @@
+import Image from "next/image";
 import { FC } from "react";
 
 type TestimonialCardProps = {
   author: string;
   description: string;
-  imageUrl?: string;
+  imageUrl: string;
 };
 
 const TestimonialCard: FC<TestimonialCardProps> = ({
@@ -16,8 +17,10 @@ const TestimonialCard: FC<TestimonialCardProps> = ({
       <div className="block shadow">
         <p>{description}</p>
         <div className="image">
-          <img
-            src={imageUrl ?? "images/testimonial/feature-testimonial-thumb.jpg"}
+          <Image
+            src={imageUrl}
+            width={30}
+            height={30}
             alt="image"
           />
         </div>

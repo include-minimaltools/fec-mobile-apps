@@ -8,11 +8,10 @@ import "~/public/plugins/aos/aos.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
-import { Footer, LoginButton, Nav } from "./components";
 import { getServerSession } from "next-auth";
 import { SessionProvider } from "~/context";
 import { authOptions } from "~/pages/api/auth/[...nextauth]";
+import { clsx } from "clsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,38 +30,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Nav />
-        <SessionProvider session={session}>
-          {children}
-        </SessionProvider>
-        <Footer />
-
-        <div className="scroll-top-to">
-          <i className="ti-angle-up"></i>
-        </div>
-
-        <Script
-          strategy="afterInteractive"
-          src="plugins/jquery/jquery.min.js"
-        />
-        <Script
-          strategy="afterInteractive"
-          src="plugins/bootstrap/bootstrap.min.js"
-        />
-        <Script strategy="afterInteractive" src="plugins/slick/slick.min.js" />
-        <Script
-          strategy="afterInteractive"
-          src="plugins/fancybox/jquery.fancybox.min.js"
-        />
-        <Script
-          strategy="afterInteractive"
-          src="plugins/syotimer/jquery.syotimer.min.js"
-        />
-        <Script strategy="afterInteractive" src="plugins/aos/aos.js" />
-        {/* <Script strategy="afterInteractive" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgeuuDfRlweIs7D6uo4wdIHVvJ0LonQ6g" /> */}
-        <Script strategy="afterInteractive" src="plugins/google-map/gmap.js" />
-        <Script strategy="afterInteractive" src="js/script.js" />
+      <body
+        className={clsx(inter.className, "body-wrapper")}
+        data-spy="scroll"
+        data-target=".privacy-nav"
+      >
+        <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>
   );

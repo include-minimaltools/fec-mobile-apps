@@ -1,23 +1,26 @@
 import Image from "next/image";
 import LogoutButton from "./LogoutButton";
 import { getServerSession } from "next-auth";
-import { LoginButton } from ".";
+import { LoginButton } from "./index";
 import { authOptions } from "~/pages/api/auth/[...nextauth]";
+import Link from "next/link";
+import { EditorCollection } from "~/firebase/database";
 
 const Nav = async () => {
   const session = await getServerSession(authOptions);
+  const editor = await new EditorCollection().exists(session?.user?.email);
 
   return (
-    <nav className="navbar fixed-top main-nav navbar-expand-lg px-2 px-sm-0 py-2 py-lg-0">
+    <nav className="navbar main-nav navbar-expand-lg px-2 px-sm-0 py-2 py-lg-0 shadow-lg">
       <div className="container">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" href="/">
           <Image
             src="/images/logos/uni-logotipo.png"
             width={70}
             height={40}
             alt="logo"
           />
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -31,6 +34,11 @@ const Nav = async () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Inicio
+              </a>
+            </li>
             <li className="nav-item dropdown @@home">
               <a
                 className="nav-link dropdown-toggle"
@@ -57,12 +65,12 @@ const Nav = async () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item @@about">
+            <li className="nav-item">
               <a className="nav-link" href="#v-edition">
                 V Edición
               </a>
             </li>
-            <li className="nav-item @@contact navbar-nav-scroll">
+            <li className="nav-item">
               <a className="nav-link page-scroll" href="#testimonial">
                 Testimonios
               </a>
@@ -106,6 +114,12 @@ const Nav = async () => {
                         className="dropdown-menu"
                         aria-labelledby="navbarDropdownMenuLink"
                       >
+                        {editor && <Link
+                          href="/projects/edit"
+                          className="dropdown-item cursor-poiter"
+                        >
+                          Editar proyecto
+                        </Link>}
                         <LogoutButton />
                       </div>
                     </li>
