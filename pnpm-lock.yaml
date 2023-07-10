@@ -43,6 +43,9 @@ dependencies:
     version: 5.1.6
 
 devDependencies:
+  '@netlify/functions':
+    specifier: ^1.6.0
+    version: 1.6.0
   '@netlify/plugin-nextjs':
     specifier: ^4.39.0
     version: 4.39.0
