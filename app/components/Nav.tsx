@@ -56,8 +56,8 @@ const Nav = () => {
                 V Edición
               </a>
             </li>
-            <li className="nav-item @@contact">
-              <a className="nav-link" href="#testimonial">
+            <li className="nav-item @@contact page-scroll">
+              <a className="nav-link page-scroll" href="#testimonial">
                 Testimonios
               </a>
             </li>

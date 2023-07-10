@@ -208,3 +208,9 @@ button:focus,
 .slick-slide:focus {
   outline: 0;
 }
+
+span.alternate{
+  color: $primary-color;
+  font-style: italic;
+  font-weight: 400;
+}
