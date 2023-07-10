@@ -21,5 +21,8 @@
     "react-dom": "18.2.0",
     "sass": "^1.63.6",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.39.0"
   }
 }
