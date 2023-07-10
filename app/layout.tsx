@@ -9,7 +9,10 @@ import "~/public/plugins/aos/aos.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-import { Footer, Nav } from "./components";
+import { Footer, LoginButton, Nav } from "./components";
+import { getServerSession } from "next-auth";
+import { SessionProvider } from "~/context";
+import { authOptions } from "~/pages/api/auth/[...nextauth]";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,16 +22,20 @@ export const metadata: Metadata = {
     "VI Edición de Feria de Aplicaciones Móviles - Universidad Nacional de Ingeniería",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <Nav />
-        {children}
+        <SessionProvider session={session}>
+          {children}
+        </SessionProvider>
         <Footer />
 
         <div className="scroll-top-to">

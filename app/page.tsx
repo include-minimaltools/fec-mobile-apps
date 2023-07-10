@@ -17,6 +17,57 @@ const testimonials = [
   },
 ];
 
+const schedule = [
+  {
+    subject: "Palabras de Apertura",
+    host: {
+      name: "Ingeniero Ronald Torres Torres",
+      position: "Decano FEC",
+    },
+    time: "09:00 AM",
+  },
+  {
+    subject: "Presentación del jurado y criterios de evaluación",
+    host: {
+      name: "Glenda Barrios Aguirre",
+      position: "Coordinador del Evento",
+    },
+    time: "9:10 AM",
+  },
+  {
+    subject: "Presentación de las Apps Desarrolladores",
+    host: {
+      name: "Participantes",
+      position: "Estudiantes de Ingeniería en Computación",
+    },
+    time: "9:15 AM",
+  },
+  {
+    subject: "Deliberación",
+    host: {
+      name: "Jurado",
+      position: "",
+    },
+    time: "10:45 AM",
+  },
+  {
+    subject: "Premiación",
+    host: {
+      name: "Jurado",
+      position: "",
+    },
+    time: "10:55 AM",
+  },
+  {
+    subject: "Palabras de Cierre",
+    host: {
+      name: "Glenda Barrios Aguirre",
+      position: "Coordinador del Evento",
+    },
+    time: "11:00 AM",
+  },
+];
+
 export default function Home() {
   return (
     <>
@@ -140,6 +191,57 @@ export default function Home() {
         </div>
       </section>
       <Countdown initialCountdown={calculateDiffDate(new Date("7/14/2023"))} />
+      <section className="section schedule">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="section-title">
+                <h2>
+                  <span className="alternate">Programa</span> del Evento
+                </h2>
+                <p>
+                  Explora nuestro completo programa de eventos para obtener una
+                  visión detallada de la VI Feria de Aplicaciones Móviles.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="row" style={{ marginTop: "-6rem" }}>
+            <div className="col-12">
+              <div className="schedule-contents bg-schedule">
+                <div className="tab-content" id="pills-tabContent">
+                  <div
+                    className="tab-pane fade show active schedule-item"
+                    id="nov20"
+                  >
+                    <ul className="m-0 p-0">
+                      <li className="headings">
+                        <div className="time">Hora</div>
+                        <div className="speaker">Anfitrión</div>
+                        <div className="subject">Tópico</div>
+                      </li>
+                      {schedule.map(({ host, subject, time }) => (
+                        <li key={time} className="schedule-details">
+                          <div className="block">
+                            <div className="time">
+                              <i className="fa fa-clock-o" />
+                              <span className="time">{time}</span>
+                            </div>
+                            <div className="speaker">
+                              <span className="name">{host.name}</span>
+                            </div>
+                            <div className="subject">{subject}</div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="feature section pt-0">
         <div className="container">
           <div className="row">
