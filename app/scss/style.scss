@@ -42,6 +42,14 @@
 
 @import "pages/contact.scss";
 
+.cursor-poiter {
+  cursor: pointer;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 .count-down {
   background-color: white;
 }

@@ -221,20 +221,18 @@ export default function Home() {
                         <div className="subject">Tópico</div>
                       </li>
                       {schedule.map(({ host, subject, time }) => (
-                        <>
-                          <li className="schedule-details">
-                            <div className="block">
-                              <div className="time">
-                                <i className="fa fa-clock-o" />
-                                <span className="time">{time}</span>
-                              </div>
-                              <div className="speaker">
-                                <span className="name">{host.name}</span>
-                              </div>
-                              <div className="subject">{subject}</div>
+                        <li key={time} className="schedule-details">
+                          <div className="block">
+                            <div className="time">
+                              <i className="fa fa-clock-o" />
+                              <span className="time">{time}</span>
                             </div>
-                          </li>
-                        </>
+                            <div className="speaker">
+                              <span className="name">{host.name}</span>
+                            </div>
+                            <div className="subject">{subject}</div>
+                          </div>
+                        </li>
                       ))}
                     </ul>
                   </div>
