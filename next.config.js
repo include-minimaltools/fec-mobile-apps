@@ -9,8 +9,7 @@ const nextConfig = {
         hostname: "lh3.googleusercontent.com",
       },
     ],
-  },
-  appDir: true
+  }
 };
 
 module.exports = nextConfig;
