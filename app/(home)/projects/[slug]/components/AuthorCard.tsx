@@ -19,12 +19,13 @@ const AuthorCard: FC<Props> = ({
           className="d-flex justify-content-center align-self-center"
           width={600}
           height={600}
+          
           src={avatarUrl}
           alt="author-image"
         />
       </div>
       <div className="media-body align-self-center">
-        <h3>{name}</h3>
+        <h4>{name}</h4>
         <p>{biography}</p>
         <ul className="list-inline social-links">
           {facebook && (

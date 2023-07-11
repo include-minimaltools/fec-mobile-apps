@@ -7,13 +7,13 @@ import "~/public/plugins/fancybox/jquery.fancybox.min.css";
 import "~/public/plugins/aos/aos.css";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Lora } from "next/font/google";
 import { getServerSession } from "next-auth";
 import { SessionProvider } from "~/context";
 import { authOptions } from "~/pages/api/auth/[...nextauth]";
 import { clsx } from "clsx";
 
-const inter = Inter({ subsets: ["latin"] });
+const lora = Lora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Feria de Aplicaciones Móviles",
@@ -31,7 +31,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={clsx(inter.className, "body-wrapper")}
+        className={clsx(lora.className, "body-wrapper")}
         data-spy="scroll"
         data-target=".privacy-nav"
       >

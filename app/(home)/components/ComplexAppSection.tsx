@@ -30,7 +30,7 @@ const ComplexAppSection: FC<Props> = ({
           <div className="col-lg-12">
             <div className="section-title">
               <h2>
-                Aplicación
+                Aplicación{" "}
                 <a href={href}>
                   {title}
                 </a>
