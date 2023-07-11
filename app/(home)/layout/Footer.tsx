@@ -103,11 +103,7 @@ const Footer = () => {
       </div> */}
       <div className="text-center bg-dark py-4">
         <small className="text-secondary">
-          Copyright © 2023 Designed by
-          <a target="_blank" href="https://themefisher.com/">
-            Themefisher{" "}
-          </a>
-          & Develop by{" "}
+          Copyright © 2023 Designed by Themefisher & Develop by{" "}
           <a target="_blank" href="https://include-minimaltools.github.io">
             Gabriel Ortiz
           </a>
