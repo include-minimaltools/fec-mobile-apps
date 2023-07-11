@@ -41,7 +41,7 @@ const Nav = async () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link page-scroll" href="#testimonial">
+              <a className="nav-link page-scroll" href="/#testimonial">
                 Testimonios
               </a>
             </li>

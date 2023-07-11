@@ -534,6 +534,16 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
             />
           </div>
           <div>
+            {errors.videoUrl && (
+              <span className="text-danger">Campo requerido</span>
+            )}
+            <input
+              className="form-control main"
+              placeholder="Video publicitario del proyecto"
+              {...register("videoUrl", { required: true })}
+            />
+          </div>
+          <div>
             {errors.sectionType && (
               <span className="text-danger">Campo requerido</span>
             )}

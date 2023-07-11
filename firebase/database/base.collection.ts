@@ -36,7 +36,7 @@ abstract class BaseCollection<T extends Collection> {
     return list as (T & { id: string })[];
   }
 
-  async create({ id: _id, ...data }: T): Promise<T> {
+  async create(data: Omit<T, "id">): Promise<T> {
     const { id } = await addDoc(this.collection, data);
     return {
       ...data,

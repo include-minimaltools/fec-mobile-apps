@@ -28,4 +28,5 @@ export interface Project extends Collection {
   features: Feature[];
   authors: Author[];
   sectionType: SectionType;
+  videoUrl?: string;
 }
