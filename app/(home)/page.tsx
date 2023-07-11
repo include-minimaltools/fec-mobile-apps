@@ -195,7 +195,11 @@ export default async function Home() {
       </section>
 
       {testimonials.length && (
-        <section className="section testimonial" id="testimonial" style={{ paddingTop: "1rem"}}>
+        <section
+          className="section testimonial"
+          id="testimonial"
+          style={{ paddingTop: "1rem" }}
+        >
           <div className="container">
             <div className="row">
               <div className="col-lg-12">

@@ -27,19 +27,19 @@ const Countdown: FC<CountdownProps> = ({ initialCountdown }) => {
               <div className="box-content">
                 <div className="box">
                   <h1 id="days">{countdown.days}</h1>
-                  <h2 id="daystxt">Days</h2>
+                  <h2 id="daystxt">Días</h2>
                 </div>
                 <div className="box">
                   <h1 id="hours">{countdown.hours}</h1>
-                  <h2 id="hourstxt">Hours</h2>
+                  <h2 id="hourstxt">Horas</h2>
                 </div>
                 <div className="box">
                   <h1 id="minutes">{countdown.minutes}</h1>
-                  <h2 id="minutestxt">Minutes</h2>
+                  <h2 id="minutestxt">Minutos</h2>
                 </div>
                 <div className="box">
                   <h1 id="seconds">{countdown.seconds}</h1>
-                  <h2 id="secondstxt">Secondes</h2>
+                  <h2 id="secondstxt">Segundos</h2>
                 </div>
               </div>
             </div>
