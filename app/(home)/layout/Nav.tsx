@@ -45,65 +45,53 @@ const Nav = async () => {
                 Testimonios
               </a>
             </li>
-            <ProjectMenu />
             <li className="nav-item">
               <a className="nav-link" href="/#v-edition">
                 V Edición
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/#judges">
+                Jurado
+              </a>
+            </li>
+            <ProjectMenu />
             {session ? (
-              <>
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#navbar-list-4"
-                  aria-controls="navbarNav"
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
                   aria-expanded="false"
-                  aria-label="Toggle navigation"
                 >
-                  <span className="navbar-toggler-icon" />
-                </button>
-                <div className="collapse navbar-collapse" id="navbar-list-4">
-                  <ul className="navbar-nav">
-                    <li className="nav-item dropdown">
-                      <a
-                        className="nav-link dropdown-toggle"
-                        id="navbarDropdownMenuLink"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <Image
-                          src={
-                            session.user?.image ??
-                            "https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-                          }
-                          width="35"
-                          height="35"
-                          className="rounded-circle"
-                          alt="avatar"
-                        />
-                      </a>
-                      <div
-                        className="dropdown-menu"
-                        aria-labelledby="navbarDropdownMenuLink"
-                      >
-                        {editor && (
-                          <Link
-                            href="/projects/edit"
-                            className="dropdown-item cursor-poiter"
-                          >
-                            Editar proyecto
-                          </Link>
-                        )}
-                        <LogoutButton />
-                      </div>
-                    </li>
-                  </ul>
+                  <Image
+                    src={
+                      session.user?.image ??
+                      "https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+                    }
+                    width="35"
+                    height="35"
+                    className="rounded-circle"
+                    alt="avatar"
+                  />
+                </a>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  {editor && (
+                    <Link
+                      href="/projects/edit"
+                      className="dropdown-item cursor-poiter"
+                    >
+                      Editar proyecto
+                    </Link>
+                  )}
+                  <LogoutButton />
                 </div>
-              </>
+              </li>
             ) : (
               <LoginButton />
             )}

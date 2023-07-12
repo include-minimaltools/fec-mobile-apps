@@ -21,6 +21,7 @@ export type SectionType = "ComplexAppSection" | "SimpleAppSection" | "SingleAppS
 
 export interface Project extends Collection {
   title: string;
+  order: number;
   description: string;
   previewUrl: string;
   coverUrl: string;
