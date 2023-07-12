@@ -541,7 +541,7 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
             <input
               className="form-control main"
               placeholder="Video publicitario del proyecto"
-              {...register("videoUrl", { required: true })}
+              {...register("videoUrl")}
             />
           </div>
           <div>
@@ -607,6 +607,7 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
                   src={avatarUrl}
                   width="40"
                   height="40"
+                  style={{ objectFit: "cover" }}
                   className="rounded-circle"
                   alt="avatar"
                   onClick={() =>

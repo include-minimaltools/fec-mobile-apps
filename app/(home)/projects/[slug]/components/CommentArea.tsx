@@ -94,6 +94,7 @@ const CommentArea: FC<Props> = ({ projectId }) => {
               defaultValue={
                 rates.find((x) => x.id === session.data.user?.email)?.rate || 0
               }
+              value={rates.find((x) => x.id === session.data.user?.email)?.rate || 0}
               onChange={({ value }) => onChangeRating(value)}
             />
           ) : (
