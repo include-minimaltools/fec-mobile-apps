@@ -10,7 +10,7 @@ type Props = {
 
 const SingleAppSection: FC<Props> = ({ title, href, description, previewUrl }) => {
   return (
-    <section className="feature section pt-0">
+    <section className="feature section pt-10">
       <div className="container">
         <div className="row">
           <div className="col-lg-6 ml-auto align-self-center">

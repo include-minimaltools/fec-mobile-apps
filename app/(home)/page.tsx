@@ -16,7 +16,16 @@ export default async function Home() {
 
   const projects = (await new ProjectCollection().getAll()) || [];
 
-  const { eventSchedule, testimonials, eventDate, videoData } = edition;
+  // await new EditionCollection().update({
+  //   id: edition.id,
+  //   testimonials: [...edition.testimonials, {
+  //     description: "Es una gran oportunidad la que nos ofrece (la feria), el implementar una aplicación que podría ocasionarnos oportunidades de trabajo (...) al fin y al cabo nosotros nos estamos preparando para la vida laboral y este es un buen camino para eso.",
+  //     author: "Gabriel Ortiz",
+  //     imageUrl: "/images/team/aliz.jpg"
+  //   }]
+  // })
+
+  const { eventSchedule, testimonials, eventDate, videoData, judgesPanel } = edition;
 
   return (
     <>
@@ -130,11 +139,11 @@ export default async function Home() {
               </h1>
             </div>
             <div className="col-md-6 text-center order-1 order-md-2">
-              {/* <img
+              <img
                 className="img-fluid"
-                src="images/mobile.png"
+                src="/images/logos/logo-white.png"
                 alt="screenshot"
-              /> */}
+              />
             </div>
           </div>
         </div>
@@ -196,7 +205,7 @@ export default async function Home() {
 
       {testimonials.length && (
         <section
-          className="section testimonial"
+          className="section testimonial p-0"
           id="testimonial"
           style={{ paddingTop: "1rem" }}
         >
@@ -220,38 +229,40 @@ export default async function Home() {
         </section>
       )}
 
-      {projects.map(
-        ({ title, description, previewUrl, id, sectionType, features }) => {
-          if (sectionType === "SingleAppSection")
-            return (
-              <SingleAppSection
-                title={title}
-                description={description}
-                href={`/projects/${id}`}
-                previewUrl={previewUrl}
-              />
-            );
-          else if (sectionType === "SimpleAppSection")
-            return (
-              <SimpleAppSection
-                title={title}
-                description={description}
-                href={`/projects/${id}`}
-                previewUrl={previewUrl}
-              />
-            );
-          else if (sectionType === "ComplexAppSection")
-            return (
-              <ComplexAppSection
-                title={title}
-                description={description}
-                href={`/projects/${id}`}
-                previewUrl={previewUrl}
-                features={features}
-              />
-            );
-        }
-      )}
+      {projects
+        .sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0))
+        .map(
+          ({ title, description, previewUrl, id, sectionType, features }) => {
+            if (sectionType === "SingleAppSection")
+              return (
+                <SingleAppSection
+                  title={title}
+                  description={description}
+                  href={`/projects/${id}`}
+                  previewUrl={previewUrl}
+                />
+              );
+            else if (sectionType === "SimpleAppSection")
+              return (
+                <SimpleAppSection
+                  title={title}
+                  description={description}
+                  href={`/projects/${id}`}
+                  previewUrl={previewUrl}
+                />
+              );
+            else if (sectionType === "ComplexAppSection")
+              return (
+                <ComplexAppSection
+                  title={title}
+                  description={description}
+                  href={`/projects/${id}`}
+                  previewUrl={previewUrl}
+                  features={features}
+                />
+              );
+          }
+        )}
 
       {videoData && (
         <section className="video-promo section bg-lalo" id="v-edition">
@@ -278,6 +289,28 @@ export default async function Home() {
           </div>
         </section>
       )}
+
+      <section className="job-list section" id="judges">
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-lg-10 m-auto">
+              <div className="block">
+                <div className="title text-center">
+                  <h2>Jurado Calificador</h2>
+                </div>
+                {judgesPanel.map(({ name, position }, index) => (
+                  <div className="job" key={`job-${index}`}>
+                    <div className="content">
+                      <h3>{name}</h3>
+                      <p>{position}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

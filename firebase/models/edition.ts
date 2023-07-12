@@ -20,10 +20,17 @@ export type EventSchedule = {
   time: string
 }
 
+export type Judge = {
+  name: string;
+  position: string;
+}
+
+
 export interface Edition extends Collection {
   testimonials: Testimonial[];
   eventSchedule: EventSchedule[];
   eventDate: Timestamp;
+  judgesPanel: Judge[];
   videoData?: {
     title: string;
     description: string;

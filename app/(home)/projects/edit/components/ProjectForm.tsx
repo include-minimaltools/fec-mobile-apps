@@ -372,7 +372,7 @@ const icons = [
 
 type ProjectFormProps = Omit<
   Project,
-  "feature" | "authors" | "previewUrl" | "coverUrl" | "id"
+  "feature" | "authors" | "previewUrl" | "coverUrl" | "id" | "order"
 >;
 
 const previewImages = {
@@ -425,8 +425,9 @@ const ProjectForm: FC<Props> = ({ id, data }) => {
       ...values,
       authors,
       features,
-      previewUrl,
+      previewUrl: data.previewUrl ?? previewUrl,
       coverUrl,
+      order: data.order ?? 0,
     };
 
     const result = await new ProjectCollection().createWithId({
