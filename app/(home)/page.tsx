@@ -8,6 +8,8 @@ import {
 } from "./components";
 import { calculateDiffDate } from "./utils";
 import { notFound } from "next/navigation";
+import moment from "moment";
+import Image from "next/image";
 
 export default async function Home() {
   const edition = await new EditionCollection().getCurrentEdition();
@@ -25,7 +27,12 @@ export default async function Home() {
   //   }]
   // })
 
-  const { eventSchedule, testimonials, eventDate, videoData, judgesPanel } = edition;
+  const { eventSchedule, testimonials, eventDate, videoData, judgesPanel } =
+    edition;
+
+  const dateWithHours = moment(eventDate.toDate())
+    .subtract(9, "hours")
+    .subtract(3, "seconds");
 
   return (
     <>
@@ -132,14 +139,16 @@ export default async function Home() {
           <div className="row align-items-center">
             <div className="col-md-6 order-2 order-md-1 text-center text-md-left">
               <p className="text-white mb-5">
-                Universidad Nacional de Ingeniería te invita a
+                Facultad de Electrotecnia y Computación te invita a
               </p>
               <h1 className="text-white font-weight-bold mb-4">
                 VI Edición de la Feria de Aplicaciones Móviles
               </h1>
             </div>
             <div className="col-md-6 text-center order-1 order-md-2">
-              <img
+              <Image
+                width={1280}
+                height={768}
                 className="img-fluid"
                 src="/images/logos/logo-white.png"
                 alt="screenshot"
@@ -148,9 +157,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <Countdown
-        initialCountdown={calculateDiffDate(new Date(eventDate.toDate()))}
-      />
+      <Countdown initialCountdown={calculateDiffDate(dateWithHours.toDate())} />
       <section className="section schedule">
         <div className="container">
           <div className="row">

@@ -19,8 +19,8 @@ const AuthorCard: FC<Props> = ({
           className="d-flex justify-content-center align-self-center"
           width={600}
           height={600}
-          
           src={avatarUrl}
+          style={{ objectFit: "cover" }}
           alt="author-image"
         />
       </div>

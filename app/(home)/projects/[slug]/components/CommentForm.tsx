@@ -47,6 +47,7 @@ const CommentForm: FC<Props> = ({ projectId }) => {
               className="form-control w-100"
               cols={30}
               rows={9}
+              maxLength={1000}
               placeholder="Escribe tu duda aquí"
               {...register("comment", { required: true })}
             />
