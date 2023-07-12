@@ -10,9 +10,9 @@ const NotFound = () => {
           <p>
             La página a la que te diriges no existe o fue removida
           </p>
-          <Link href="/" className="btn btn-main-md">
+          <a href="/" className="btn btn-main-md">
             Volver al inicio
-          </Link>
+          </a>
         </div>
       </div>
     </section>

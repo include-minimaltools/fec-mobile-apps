@@ -21,9 +21,9 @@ export default async function Home() {
   // await new EditionCollection().update({
   //   id: edition.id,
   //   testimonials: [...edition.testimonials, {
-  //     description: "Es una gran oportunidad la que nos ofrece (la feria), el implementar una aplicación que podría ocasionarnos oportunidades de trabajo (...) al fin y al cabo nosotros nos estamos preparando para la vida laboral y este es un buen camino para eso.",
-  //     author: "Gabriel Ortiz",
-  //     imageUrl: "/images/team/aliz.jpg"
+  //     description: "Fue una oportunidad unica para conocer las diferentes aplicaiones desarrolladas, así como para interactuar con otros sobre los desafios y oportunidades relacionados al campo que abarca su aplicacion.",
+  //     author: "Luis Pineda",
+  //     imageUrl: "/images/team/luis-pineda.jpg"
   //   }]
   // })
 
@@ -31,7 +31,6 @@ export default async function Home() {
     edition;
 
   const dateWithHours = moment(eventDate.toDate())
-    .subtract(9, "hours")
     .subtract(3, "seconds");
 
   return (
@@ -157,7 +156,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <Countdown initialCountdown={calculateDiffDate(dateWithHours.toDate())} />
+      <Countdown initialCountdown={calculateDiffDate(dateWithHours.toDate())} eventDate={eventDate.toDate()}/>
       <section className="section schedule">
         <div className="container">
           <div className="row">
