@@ -31,6 +31,7 @@ export interface Edition extends Collection {
   eventSchedule: EventSchedule[];
   eventDate: Timestamp;
   judgesPanel: Judge[];
+  locationDescription?: string;
   videoData?: {
     title: string;
     description: string;
