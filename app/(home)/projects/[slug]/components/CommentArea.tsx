@@ -56,7 +56,7 @@ const CommentArea: FC<Props> = ({ projectId }) => {
               <div className="fun-fact">
                 <i className="ti-star" />
                 <h3>
-                  {rates.reduce((a, b) => a + b.rate, 0) / rates.length || "-"}
+                  {(rates.reduce((a, b) => a + b.rate, 0) / rates.length).toFixed(1) || "-"}
                 </h3>
                 <p>
                   {rates.length === 0
