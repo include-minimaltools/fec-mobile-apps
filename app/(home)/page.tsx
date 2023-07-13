@@ -27,8 +27,14 @@ export default async function Home() {
   //   }]
   // })
 
-  const { eventSchedule, testimonials, eventDate, videoData, judgesPanel } =
-    edition;
+  const {
+    eventSchedule,
+    testimonials,
+    eventDate,
+    videoData,
+    judgesPanel,
+    locationDescription,
+  } = edition;
 
   const dateWithHours = moment(eventDate.toDate()).subtract(3, "seconds");
 
@@ -142,15 +148,17 @@ export default async function Home() {
               <h1 className="text-white font-weight-bold mb-4">
                 VI Edición de la Feria de Aplicaciones Móviles
               </h1>
-              <h5
-                className="text-white"
-                data-aos="fade-right"
-                data-aos-duration={500}
-                data-aos-delay={100}
-              >
-                <i className="ti-location-pin" />
-                Edificio Rigoberto López Pérez, Aula B - II
-              </h5>
+              {locationDescription && (
+                <h5
+                  className="text-white"
+                  data-aos="fade-right"
+                  data-aos-duration={500}
+                  data-aos-delay={100}
+                >
+                  <i className="ti-location-pin" />
+                  {locationDescription}
+                </h5>
+              )}
             </div>
             <div className="col-md-6 text-center order-1 order-md-2">
               <Image
