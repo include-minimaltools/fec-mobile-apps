@@ -33,7 +33,9 @@ const CommentArea: FC<Props> = ({ projectId }) => {
     if (!session.data?.user?.email) return signIn("google");
 
     if (!value)
-      return await new RateCollection(projectId).delete(session.data.user.email);
+      return await new RateCollection(projectId).delete(
+        session.data.user.email
+      );
 
     await new RateCollection(projectId).createWithId({
       id: session.data.user.email,
@@ -41,6 +43,8 @@ const CommentArea: FC<Props> = ({ projectId }) => {
       rate: value,
     });
   };
+
+  const currentRate = rates.reduce((a, b) => a + b.rate, 0) / rates.length;
 
   return (
     <>
@@ -55,9 +59,7 @@ const CommentArea: FC<Props> = ({ projectId }) => {
             <div className="col-lg-3 col-md-6">
               <div className="fun-fact">
                 <i className="ti-star" />
-                <h3>
-                  {(rates.reduce((a, b) => a + b.rate, 0) / rates.length).toFixed(1) || "-"}
-                </h3>
+                <h3>{isNaN(currentRate) ? "-" : currentRate.toFixed(1)}</h3>
                 <p>
                   {rates.length === 0
                     ? "No se ha votado aún"
@@ -94,7 +96,9 @@ const CommentArea: FC<Props> = ({ projectId }) => {
               defaultValue={
                 rates.find((x) => x.id === session.data.user?.email)?.rate || 0
               }
-              value={rates.find((x) => x.id === session.data.user?.email)?.rate || 0}
+              value={
+                rates.find((x) => x.id === session.data.user?.email)?.rate || 0
+              }
               onChange={({ value }) => onChangeRating(value)}
             />
           ) : (
