@@ -21,7 +21,12 @@ const Countdown: FC<CountdownProps> = ({ initialCountdown, eventDate }) => {
   });
 
   return (
-    <section className="count-down">
+    <section
+      className="count-down"
+      data-aos="fade-up"
+      data-aos-duration={2000}
+      data-aos-delay={50}
+    >
       <div className="container">
         <div className="row">
           <div className="col-12">
