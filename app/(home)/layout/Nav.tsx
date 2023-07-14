@@ -17,7 +17,19 @@ const Nav = async () => {
         <Link className="navbar-brand" href="/">
           <Image
             src="/images/logos/uni-logotipo.png"
-            width={70}
+            width={64.8}
+            height={40}
+            alt="logo-universidad"
+          />
+          <Image
+            src="/images/logos/fec.png"
+            width={53.2}
+            height={40}
+            alt="logo-facultad"
+          />
+          <Image
+            src="/images/logos/logo.png"
+            width={66.8}
             height={40}
             alt="logo"
           />
