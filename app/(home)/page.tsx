@@ -217,6 +217,7 @@ export default async function Home() {
               return (
                 <SingleAppSection
                   title={title}
+                  key={id}
                   description={description}
                   href={`/projects/${id}`}
                   previewUrl={previewUrl}
@@ -226,6 +227,7 @@ export default async function Home() {
               return (
                 <SimpleAppSection
                   title={title}
+                  key={id}
                   description={description}
                   href={`/projects/${id}`}
                   previewUrl={previewUrl}
@@ -235,6 +237,7 @@ export default async function Home() {
               return (
                 <ComplexAppSection
                   title={title}
+                  key={id}
                   description={description}
                   href={`/projects/${id}`}
                   previewUrl={previewUrl}

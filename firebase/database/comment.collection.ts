@@ -4,7 +4,7 @@ import { CURRENT_EDITION } from "~/constants";
 
 class CommentCollection extends BaseService<Comment> {
   constructor(projectId: string) {
-    super(`Editions/${CURRENT_EDITION}/Projects/${projectId}/Comments`);
+    super(`Editions/${CURRENT_EDITION}/Projects/${projectId}/JuryComments`);
   }
 }
 
