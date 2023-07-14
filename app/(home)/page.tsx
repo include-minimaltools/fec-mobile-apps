@@ -2,6 +2,7 @@ import { EditionCollection, ProjectCollection } from "~/firebase/database";
 import {
   ComplexAppSection,
   Countdown,
+  ScheduleSection,
   SimpleAppSection,
   SingleAppSection,
   TestimonialCard,
@@ -179,57 +180,8 @@ export default async function Home() {
         initialCountdown={calculateDiffDate(dateWithHours.toDate())}
         eventDate={eventDate.toDate()}
       />
-      <section className="section schedule">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="section-title">
-                <h2>
-                  <span className="alternate">Programa</span> del Evento
-                </h2>
-                <p>
-                  Explora nuestro completo programa de eventos para obtener una
-                  visión detallada de la VI Feria de Aplicaciones Móviles.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="row" style={{ marginTop: "-6rem" }}>
-            <div className="col-12">
-              <div className="schedule-contents bg-schedule">
-                <div className="tab-content" id="pills-tabContent">
-                  <div
-                    className="tab-pane fade show active schedule-item"
-                    id="nov20"
-                  >
-                    <ul className="m-0 p-0">
-                      <li className="headings">
-                        <div className="time">Hora</div>
-                        <div className="speaker">Anfitrión</div>
-                        <div className="subject">Tópico</div>
-                      </li>
-                      {eventSchedule.map(({ host, subject, time }) => (
-                        <li key={time} className="schedule-details">
-                          <div className="block">
-                            <div className="time">
-                              <i className="fa fa-clock-o" />
-                              <span className="time">{time}</span>
-                            </div>
-                            <div className="speaker">
-                              <span className="name">{host.name}</span>
-                            </div>
-                            <div className="subject">{subject}</div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
+      <ScheduleSection />
 
       {testimonials.length && (
         <section
