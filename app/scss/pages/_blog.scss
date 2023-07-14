@@ -245,6 +245,20 @@
 	}
 }
 
+.rating-area {
+	background: transparent;
+	border-top: 1px solid #eee;
+	padding: 25px 0;
+	margin-top: 25px;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+
+	@media(max-width: 414px) {
+		padding: 25px 8px;
+	}
+}
+
 .comments-area {
 	background: transparent;
 	// border: 1px solid #eee;

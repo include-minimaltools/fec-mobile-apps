@@ -1,3 +1,5 @@
+"use client";
+
 import { Timestamp } from "firebase/firestore";
 import { signIn, useSession } from "next-auth/react";
 import { FC } from "react";
