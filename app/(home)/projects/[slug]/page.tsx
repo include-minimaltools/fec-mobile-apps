@@ -3,6 +3,33 @@ import { notFound } from "next/navigation";
 import { ProjectCollection } from "~/firebase/database/";
 import { AuthorCard, CommentArea } from "./components";
 import Image from "next/image";
+import { Metadata } from "next";
+import { metadata } from "~/app/layout";
+
+export const generateMetadata = async (props: any): Promise<Metadata> => {
+  const id = props.params.slug;
+  const data = await new ProjectCollection().get(id);
+
+  if (!data) {
+    return {
+      title: "Proyecto no encontrado",
+      description: "El proyecto al que intentaste acceder no existe",
+    };
+  }
+  const keywords =
+    typeof metadata.keywords !== "string" ? metadata.keywords ?? [] : [];
+
+  return {
+    title: data.title,
+    description: data.description,
+    keywords: [...keywords, data.title],
+    openGraph: {
+      images: data.coverUrl,
+      title: data.title,
+      description: data.description,
+    },
+  };
+};
 
 const ProjectPage = async (props: any) => {
   const id = props.params.slug;
@@ -72,4 +99,13 @@ const ProjectPage = async (props: any) => {
     </section>
   );
 };
+
+export const generateStaticParams = async () => {
+  const projects = await new ProjectCollection().getAll();
+
+  return projects.map((x) => ({
+    slug: x.id,
+  }));
+};
+
 export default ProjectPage;

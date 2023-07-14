@@ -16,9 +16,31 @@ import { clsx } from "clsx";
 const lora = Lora({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Feria de Aplicaciones Móviles",
+  title: {
+    default: "Feria de Aplicaciones Móviles",
+    template: "%s | Feria de Aplicaciones Móviles",
+  },
+  themeColor: "white",
   description:
-    "VI Edición de Feria de Aplicaciones Móviles - Universidad Nacional de Ingeniería",
+    "La Facultad de Electrotecnia y Computación te invita a la VI Edición de Feria de Aplicaciones Móviles | Universidad Nacional de Ingeniería",
+  keywords: [
+    "Universidad Nacional de Ingeniería",
+    "UNI",
+    "FEC",
+    "Facultad de Electrotecnia y Computación",
+    "Nicaragua",
+    "Rigoberto López Pérez",
+  ],
+  openGraph: {
+    title: "Feria de Aplicaciones Móviles",
+    description: "La FEC te invita a la VI Edición de Aplicaciones Móviles",
+    images: "/images/logos/logo-bg-white.png",
+  },
+  appLinks: {
+    web: {
+      url: "https://master--fec-mobile-apps.netlify.app",
+    },
+  },
 };
 
 export default async function RootLayout({
