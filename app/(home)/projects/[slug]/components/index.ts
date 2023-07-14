@@ -3,3 +3,4 @@ export { default as CommentArea } from "./CommentArea";
 export { default as CommentForm } from "./CommentForm";
 export { default as CommentItem } from "./CommentItem";
 export { default as RateForm } from "./RateForm";
+export { default as RecommendedSection } from "./RecommendedSection";
