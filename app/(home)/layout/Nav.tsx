@@ -6,6 +6,7 @@ import { authOptions } from "~/pages/api/auth/[...nextauth]";
 import Link from "next/link";
 import { EditorCollection } from "~/firebase/database";
 import ProjectMenu from "./ProjectMenu";
+import AdminNavItem from "./AdminNavItem";
 
 const Nav = async () => {
   const session = await getServerSession(authOptions);
@@ -67,6 +68,7 @@ const Nav = async () => {
                 Jurado
               </a>
             </li>
+            <AdminNavItem />
             <ProjectMenu />
             {session ? (
               <li className="nav-item dropdown">

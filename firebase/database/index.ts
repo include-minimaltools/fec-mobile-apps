@@ -7,3 +7,4 @@ export { default as CommentCollection } from "./comment.collection";
 export { default as RateCollection } from "./rate.collection";
 export { default as ActivityCollection } from "./activity.collection";
 export { default as JuryCollection } from "./jury.collection";
+export { default as AdminCollection } from "./admin.collection";

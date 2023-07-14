@@ -2,10 +2,10 @@
 
 import { Rating } from "@progress/kendo-react-inputs";
 import { Timestamp } from "firebase/firestore";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { FC, useEffect, useState } from "react";
-import { JuryCollection, RateCollection } from "~/firebase/database";
-import { Criteria, EMPTY_RATE, Jury, Rate } from "~/firebase/models";
+import { RateCollection } from "~/firebase/database";
+import { Criteria, EMPTY_RATE, Rate } from "~/firebase/models";
 
 export type Props = {
   projectId: string;
@@ -22,7 +22,7 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
     if (email) return new RateCollection(projectId).subscribe(email, setRate);
   }, [projectId, email]);
 
-  if (!email || !rate) return <></>;
+  if (!email || !isJury) return <></>;
 
   const onChangeRating = async (value: number, criteria: Criteria) => {
     const rateCollection = new RateCollection(projectId);
@@ -32,6 +32,8 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
     if (!exist)
       return await rateCollection.createWithId({
         id: email,
+        email: email,
+        projectId: projectId,
         date: Timestamp.now(),
         ...EMPTY_RATE,
         [criteria]: value ?? 0,
@@ -43,29 +45,38 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
     });
   };
 
-  if (!isJury) return <p>No estas autorizado para calificar</p>;
-
-  const currentRate =
-    (rate.complexity +
-      rate.funcionality +
-      rate.innovation +
-      rate.presentation +
-      rate.userExperience) *
-    4;
-
   return (
     <section className="company-fun-facts section rating-area">
       <div className="container">
         <div className="row">
           <div className="col-12 text-center">
-            <h2>Calificación del Proyecto</h2>
+            <h2>Tu calificación del proyecto</h2>
           </div>
         </div>
         <div className="row justify-content-around">
           <div className="col-lg-3 col-md-6">
             <div className="fun-fact">
               <i className="ti-star" />
-              <h3>{isNaN(currentRate) ? "-" : currentRate.toFixed(1)}</h3>
+              <h3>
+                {!rate ||
+                isNaN(
+                  (rate.complexity +
+                    rate.funcionality +
+                    rate.innovation +
+                    rate.presentation +
+                    rate.userExperience) *
+                    4
+                )
+                  ? "-"
+                  : (
+                      (rate.complexity +
+                        rate.funcionality +
+                        rate.innovation +
+                        rate.presentation +
+                        rate.userExperience) *
+                      4
+                    ).toFixed(1)}
+              </h3>
             </div>
           </div>
         </div>
@@ -78,8 +89,8 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
         </p>
         <div className="d-flex justify-content-center">
           <Rating
-            defaultValue={rate.presentation || 0}
-            value={rate.presentation || 0}
+            defaultValue={rate?.presentation || 0}
+            value={rate?.presentation || 0}
             onChange={({ value }) => onChangeRating(value, "presentation")}
           />
         </div>
@@ -92,8 +103,8 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
         </p>
         <div className="d-flex justify-content-center">
           <Rating
-            defaultValue={rate.userExperience || 0}
-            value={rate.userExperience || 0}
+            defaultValue={rate?.userExperience || 0}
+            value={rate?.userExperience || 0}
             onChange={({ value }) => onChangeRating(value, "userExperience")}
           />
         </div>
@@ -106,8 +117,8 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
         </p>
         <div className="d-flex justify-content-center">
           <Rating
-            defaultValue={rate.funcionality || 0}
-            value={rate.funcionality || 0}
+            defaultValue={rate?.funcionality || 0}
+            value={rate?.funcionality || 0}
             onChange={({ value }) => onChangeRating(value, "funcionality")}
           />
         </div>
@@ -120,8 +131,8 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
         </p>
         <div className="d-flex justify-content-center">
           <Rating
-            defaultValue={rate.complexity || 0}
-            value={rate.complexity || 0}
+            defaultValue={rate?.complexity || 0}
+            value={rate?.complexity || 0}
             onChange={({ value }) => onChangeRating(value, "complexity")}
           />
         </div>
@@ -134,8 +145,8 @@ const RateForm: FC<Props> = ({ projectId, isJury }) => {
         </p>
         <div className="d-flex justify-content-center">
           <Rating
-            defaultValue={rate.innovation || 0}
-            value={rate.innovation || 0}
+            defaultValue={rate?.innovation || 0}
+            value={rate?.innovation || 0}
             onChange={({ value }) => onChangeRating(value, "innovation")}
           />
         </div>
