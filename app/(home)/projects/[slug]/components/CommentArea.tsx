@@ -47,7 +47,7 @@ const CommentArea: FC<Props> = ({ projectId }) => {
             />
           ))}
       </div>
-      {isJury && (
+      {isJury && isJury.active && (
         <div className="comment-form">
           <h4>Comenta tus dudas</h4>
           <CommentForm projectId={projectId} />
