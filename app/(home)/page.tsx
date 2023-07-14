@@ -29,7 +29,6 @@ export default async function Home() {
   // })
 
   const {
-    eventSchedule,
     testimonials,
     eventDate,
     videoData,
@@ -171,6 +170,7 @@ export default async function Home() {
                 data-aos-delay={100}
                 src="/images/logos/logo-white.png"
                 alt="screenshot"
+                priority
               />
             </div>
           </div>
@@ -180,7 +180,7 @@ export default async function Home() {
         initialCountdown={calculateDiffDate(dateWithHours.toDate())}
         eventDate={eventDate.toDate()}
       />
-      
+
       <ScheduleSection />
 
       {testimonials.length && (
@@ -258,7 +258,7 @@ export default async function Home() {
                     desarrollados por futuros ingenieros en computación.
                   </p>
                   <a
-                    data-fancybox=""
+                    data-fancybox
                     href="https://www.youtube.com/watch?v=RWcWginJA1o"
                   >
                     <i className="ti-control-play video" />
