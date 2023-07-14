@@ -32,10 +32,13 @@ export const metadata: Metadata = {
     "Rigoberto López Pérez",
   ],
   openGraph: {
+    url: "https://master--fec-mobile-apps.netlify.app",
     title: "Feria de Aplicaciones Móviles",
-    description: "La FEC te invita a la VI Edición de Aplicaciones Móviles",
-    images: "/images/logos/logo-bg-white.png",
+    description:
+      "La Facultad de Electrotecnia y Computación te invita a la VI Edición de Feria de Aplicaciones Móviles | Universidad Nacional de Ingeniería",
+    images: "images/logos/logo-bg-white.png",
   },
+  metadataBase: new URL("https://master--fec-mobile-apps.netlify.app"),
   appLinks: {
     web: {
       url: "https://master--fec-mobile-apps.netlify.app",
