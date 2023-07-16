@@ -1,4 +1,9 @@
-import { EditionCollection, ProjectCollection } from "~/firebase/database";
+import {
+  EditionCollection,
+  JuryCollection,
+  ProjectCollection,
+  RateCollection,
+} from "~/firebase/database";
 import {
   ComplexAppSection,
   Countdown,
@@ -11,6 +16,8 @@ import { calculateDiffDate } from "./utils";
 import { notFound } from "next/navigation";
 import moment from "moment";
 import Image from "next/image";
+import { PositionTable } from "../components";
+import { Jury, Rate } from "~/firebase/models";
 
 export default async function Home() {
   const edition = await new EditionCollection().getCurrentEdition();
@@ -19,24 +26,25 @@ export default async function Home() {
 
   const projects = (await new ProjectCollection().getAll()) || [];
 
-  // await new EditionCollection().update({
-  //   id: edition.id,
-  //   testimonials: [...edition.testimonials, {
-  //     description: "Fue una oportunidad unica para conocer las diferentes aplicaiones desarrolladas, así como para interactuar con otros sobre los desafios y oportunidades relacionados al campo que abarca su aplicacion.",
-  //     author: "Luis Pineda",
-  //     imageUrl: "/images/team/luis-pineda.jpg"
-  //   }]
-  // })
-
   const {
     testimonials,
     eventDate,
     videoData,
     judgesPanel,
     locationDescription,
+    status,
   } = edition;
 
   const dateWithHours = moment(eventDate.toDate()).subtract(3, "seconds");
+
+  let juries: Jury[] = [];
+  let rates: Rate[] = [];
+
+  if (status === "finished") {
+    juries = await new JuryCollection().getAll();
+    rates = await new ProjectCollection().getRates();
+  }
+
 
   return (
     <>
@@ -182,6 +190,10 @@ export default async function Home() {
       />
 
       <ScheduleSection />
+      
+      {status === "finished" && (
+        <PositionTable max={5} juries={juries} projects={projects} rates={rates} />
+      )}
 
       {testimonials.length && (
         <section

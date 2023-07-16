@@ -2,13 +2,15 @@
 
 import moment from "moment";
 import { FC, useEffect, useState } from "react";
-import { Comment, Jury } from "~/firebase/models";
+import { Comment, Edition, Jury } from "~/firebase/models";
 import { CommentItem, CommentForm, RateForm } from "./index";
 import {
   CommentCollection,
+  EditionCollection,
   JuryCollection,
 } from "~/firebase/database";
 import { useSession } from "next-auth/react";
+import { CURRENT_EDITION } from "~/constants";
 
 type Props = {
   projectId: string;
@@ -17,8 +19,14 @@ type Props = {
 const CommentArea: FC<Props> = ({ projectId }) => {
   const session = useSession();
   const [comment, setComment] = useState<Comment[]>([]);
+  const [edition, setEdition] = useState<Edition>();
   const [isJury, setIsJury] = useState<Jury>();
   const email = session.data?.user?.email;
+
+  useEffect(
+    () => new EditionCollection().subscribe(CURRENT_EDITION, setEdition),
+    []
+  );
 
   useEffect(() => {
     if (email) return new JuryCollection().subscribe(email, setIsJury);
@@ -31,7 +39,9 @@ const CommentArea: FC<Props> = ({ projectId }) => {
 
   return (
     <>
-      <RateForm projectId={projectId} isJury={isJury?.active} />
+      {edition?.status === "in progress" && (
+        <RateForm projectId={projectId} isJury={isJury?.active} />
+      )}
       <div className="comments-area">
         <h4>{comment.length} Comentarios del Jurado</h4>
         {comment

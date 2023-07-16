@@ -20,6 +20,15 @@ class ProjectCollection extends BaseService<Project> {
 
     return unsubscribe;
   }
+
+  async getRates() {
+    const snapshot = await getDocs(collectionGroup(this.store, 'Rates'));
+    const list = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    return list as Rate[];
+  }
 }
 
 export default ProjectCollection;

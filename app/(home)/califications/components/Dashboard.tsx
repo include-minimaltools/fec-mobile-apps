@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { CRITERIA_WITH_TITLE, Jury, Project, Rate } from "~/firebase/models";
 import { Bar, Radar } from "react-chartjs-2";
 import {
@@ -16,7 +16,6 @@ import {
   LineElement,
   Filler,
 } from "chart.js";
-import { ProjectCollection } from "~/firebase/database";
 
 ChartJS.register(
   ArcElement,
@@ -62,8 +61,6 @@ const radarColors = [
 ];
 
 const Dashboard: FC<Props> = ({ projects, juries, rates }) => {
-  
-
   const orderedProjects = projects.sort((a, b) => a.order - b.order);
 
   const radarData = {
@@ -73,9 +70,17 @@ const Dashboard: FC<Props> = ({ projects, juries, rates }) => {
       data: CRITERIA_WITH_TITLE.map(
         ({ criteria }) =>
           rates
-            .filter((x) => x.projectId === project.id && juries.find((y) => y.id === x.email)?.active)
-            .reduce((acum, data) => acum + data[criteria] * 2, 0) /
-          juries.length
+            .filter(
+              (x) =>
+                x.projectId === project.id &&
+                juries.find((y) => y.id === x.email)?.active
+            )
+            .reduce((acum, data) => acum + data[criteria], 0) /
+            juries.filter((jury) =>
+            rates.some(
+              (rate) => rate.projectId === project.id && rate.email === jury.id
+            )
+          ).length
       ),
       backgroundColor: radarColors[index] + "75",
     })),
@@ -90,7 +95,11 @@ const Dashboard: FC<Props> = ({ projects, juries, rates }) => {
         data: orderedProjects.map(
           (data) =>
             rates
-              .filter((x) => x.projectId === data.id && juries.find((y) => y.id === x.email)?.active)
+              .filter(
+                (x) =>
+                  x.projectId === data.id &&
+                  juries.find((y) => y.id === x.email)?.active
+              )
               .reduce((acum, data) => {
                 const result =
                   data.complexity +
@@ -100,7 +109,12 @@ const Dashboard: FC<Props> = ({ projects, juries, rates }) => {
                   data.userExperience;
 
                 return isNaN(result) ? acum : acum + result * 4;
-              }, 0) / juries.length
+              }, 0) /
+            juries.filter((jury) =>
+              rates.some(
+                (rate) => rate.projectId === data.id && rate.email === jury.id
+              )
+            ).length
         ),
         backgroundColor: colors,
       },
@@ -126,6 +140,7 @@ const Dashboard: FC<Props> = ({ projects, juries, rates }) => {
               indexAxis: "x",
               scales: {
                 y: {
+                  min: 55,
                   // max: 100,
                 },
               },

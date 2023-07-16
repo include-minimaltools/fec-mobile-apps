@@ -2,9 +2,8 @@
 import { FC, useEffect, useState } from "react";
 import { ProjectCollection } from "~/firebase/database";
 import { Jury, Project, Rate } from "~/firebase/models";
-import JurySection from "./JurySection";
-import Dashboard from "./Dashboard";
-import PositionTable from "./PositionTable";
+import { PositionTable } from "~/app/components";
+import { Dashboard, JurySection } from "./index";
 
 type Props = {
   projects: Project[];

@@ -25,8 +25,10 @@ export type Judge = {
   position: string;
 }
 
+export type EditionStatus = "finished" | "in progress" | "pre";
 
 export interface Edition extends Collection {
+  status: EditionStatus;
   testimonials: Testimonial[];
   eventSchedule: EventSchedule[];
   eventDate: Timestamp;
