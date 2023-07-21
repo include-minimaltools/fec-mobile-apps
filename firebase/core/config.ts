@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCXP4R00IbxGhNwL5P1J6Z9Z67jn9rw5bM",
-  authDomain: "mobile-apps-fair.firebaseapp.com",
-  projectId: "mobile-apps-fair",
-  storageBucket: "mobile-apps-fair.appspot.com",
-  messagingSenderId: "417123189700",
-  appId: "1:417123189700:web:5f49b3d11f7e1eedbada91"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID
 };
 
 export const app = initializeApp(firebaseConfig);
