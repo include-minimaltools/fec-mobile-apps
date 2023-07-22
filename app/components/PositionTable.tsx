@@ -84,13 +84,11 @@ const PositionTable: FC<Props> = ({ projects, juries, rates, max }) => {
                         <span className="font-weight-bold">{index + 1}. </span>
                         {title}
                       </h3>
-                      <p>
-                        {authors.map((x) => (
-                          <>
+                      {authors.map((x, index) => (
+                          <p key={`${x.id}-${index}`}>
                             {x.name} <br />
-                          </>
-                        ))}
-                      </p>
+                          </p>
+                      ))}
                     </div>
                     <div className="apply-button">
                       <a
